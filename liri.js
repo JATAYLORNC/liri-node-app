@@ -17,6 +17,12 @@ var client = new Twitter(keys.twitter);
 
 var command = process.argv[2];
 
+fs.appendFile("log.txt", "\r\n" + "Command: " + command + "\r\n", function(error) {
+    if (error) {
+      return console.log(err);
+    }
+  });
+
 // Store all of the arguments in an array
 var nodeArgs = process.argv;
 
@@ -95,6 +101,12 @@ if(command === "my-tweets") {
         data = data.split(",");
         command = data[0];
 
+        fs.appendFile("log.txt", "It Says: " + command + "\r\n", function(error) {
+            if (error) {
+              return console.log(err);
+            }
+        });
+
         if(command === "spotify-this-song") {
 
             songName = data[1];
@@ -127,6 +139,12 @@ function twitter() {
             var date = tweets[i].created_at;
             var tweetDate = moment(date, "ddd MMM DD HH:mm:ss ZZ YYYY").format("ddd, MMM Do YYYY, h:mm:ss a");
             console.log(tweetDate + "  " + myTweet + "\r\n");
+
+            fs.appendFile("log.txt", "Tweet: " + tweetDate + "  " + myTweet + "\r\n", function(error) {
+                if (error) {
+                  return console.log(err);
+                }
+              });
         }
     });
 }
@@ -150,6 +168,13 @@ function spotifySearch() {
                     console.log("Song Name: " + song);
                     console.log("Song Preview URL: " + songInfo.preview_url);
                     console.log("Album Name: " + songInfo.album.name);
+
+                    fs.appendFile("log.txt", "Artist: " + artist + "\r\n" + "Song Name: " + song + "\r\n" + 
+                    "Song Preview URL: " + songInfo.preview_url + "\r\n" + "Album Name: " + songInfo.album.name + "\r\n", function(error) {
+                        if (error) {
+                          return console.log(err);
+                        }
+                    });
                 }
             }
         } else {
@@ -159,6 +184,14 @@ function spotifySearch() {
             console.log("Song Name: " + songInfo.name);
             console.log("Song Preview URL" + songInfo.preview_url);        
             console.log("Album Name: " + songInfo.album.name);
+
+            fs.appendFile("log.txt", "Artist: " + songInfo.artists[0].name + "\r\n" + "Song Name: " + songInfo.name + "\r\n" + 
+            "Song Preview URL: " + songInfo.preview_url + "\r\n" + "Album Name: " + songInfo.album.name + "\r\n", function(error) {
+                if (error) {
+                    return console.log(err);
+                }
+            });
+
         }
     });
 }
@@ -194,6 +227,17 @@ function omdb() {
             console.log("Language of Movie: " + movieInfo.Language);
             console.log("Plot: " + movieInfo.Plot);
             console.log("Actors: " + movieInfo.Actors);
+
+            fs.appendFile("log.txt", "Movie Title: " + movieInfo.Title + "\r\n" + "Year Released:  " + yearReleased + "\r\n" + 
+            "IMDB Rating: " + movieRatingIMDB + "\r\n" + "Rotten Tomatoes Rating: " + movieRatingRT + "\r\n" + 
+            "Country Where Movie Was Produced: " + movieInfo.Country + "\r\n" + 
+            "Language of Movie: " + movieInfo.Language + "\r\n" + "Plot: " + movieInfo.Plot + "\r\n" + 
+            "Actors: " + movieInfo.Actors + "\r\n", function(error) {
+                        
+                if (error) {
+                    return console.log(err);
+                }
+            });
         }
     });
 }
