@@ -9,7 +9,7 @@ LIRI is a command line node app that takes in commands and provides the requeste
 
 * "do-what-it-says"  Reads one of the above 3 commands written in random.txt file and responds accordingly as per the above. 
 
-##About
+## About
 liri-node-app is programmed in javascript and makes use of the following npm packages
 
 * dotenv   Used to to store twitter and spotify access keys in a .env file.
